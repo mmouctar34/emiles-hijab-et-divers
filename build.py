@@ -5,7 +5,7 @@
   index.html    = contenu de la page (commence par <title>), tel qu'on le publie sur la plateforme
   full.html     = document complet tel que la page se republie elle-même (sert aux tests et à l'aperçu local)
   template.html = gabarit (avec le marqueur de bloc), sert aux tests
-Avec --pages, écrit aussi la version pour GitHub Pages dans docs/ (index.html + photos dans _blob/).
+Avec --pages, écrit aussi la version pour GitHub Pages à la racine du dépôt (index.html + photos dans _blob/).
 IMPORTANT avant toute republication : partir du catalogue PUBLIÉ (bloc catalog-data de la version en ligne),
 pas de data/catalog.json, sinon on écrase ce que le propriétaire a publié depuis."""
 import base64, json, os, re, shutil, sys
@@ -111,7 +111,7 @@ def pages_version(full, assets):
 def write_pages(full):
     assets = json.load(open(os.path.join(HERE, 'data', 'assets.json')))
     out, n = pages_version(full, assets)
-    d = os.path.join(HERE, 'docs')
+    d = HERE
     blob = os.path.join(d, '_blob')
     if os.path.isdir(blob):
         shutil.rmtree(blob)
@@ -120,7 +120,7 @@ def write_pages(full):
         shutil.copy(os.path.join(HERE, 'assets', 'photos', name + '.jpg'), os.path.join(blob, bid + '.jpg'))
     open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(out)
     open(os.path.join(d, '.nojekyll'), 'w').write('')
-    print('pages : docs/index.html', len(out), 'octets,', n, 'liens photo,', len(assets), 'photos copiées')
+    print('pages : index.html', len(out), 'octets,', n, 'liens photo,', len(assets), 'photos copiées')
 
 
 if __name__ == '__main__':
