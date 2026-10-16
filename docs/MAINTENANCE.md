@@ -25,3 +25,5 @@ Squelette Artifact : `<!doctype html>…<body>` + "\n" + contenu + "\n</body></h
 - v11 : barre du haut réduite à Marques, Conseils et réseaux (Nouveautés, Soldes et Idées cadeaux retirés de la barre, du menu mobile et des cases de l'éditeur ; les vues et le champ `tags` existent toujours dans le code).
 - v11 : bandeau « Maquette de démonstration, pas encore le site officiel d'Emile's Hijab & Divers » : la boutique est une proposition faite sans accord préalable du commerçant, à retirer s'il valide.
 - Gestion : seuls les comptes ayant le droit de modification (menu Partager) voient « Mode gestion ». Pour une remise au commerçant, prévoir un hébergement dédié (domaine et accès administrateur).
+- v12 : barre du haut sans Marques ni Conseils ; Facebook et Messenger retirés partout (barre, pied de page, données). Marques et Conseils restent dans le pied de page et le menu mobile.
+- Version GitHub Pages (`python3 build.py --pages`) : index.html et _blob/ à la racine, bandeau de démonstration non fermable, noindex, gestion de démonstration (`src/pages-demo.js`, activée par `#gestion`, stockage dans le navigateur).

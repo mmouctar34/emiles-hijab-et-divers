@@ -73,10 +73,9 @@ ul{margin:0;padding:0;list-style:none}
 .util-menu{position:absolute;left:0;top:100%;z-index:46;min-width:200px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
 .util-menu button{display:block;width:100%;padding:9px 12px;border:0;background:none;border-radius:8px;text-align:left;font-size:14.5px}
 .util-menu button:hover{background:var(--blush-soft);color:var(--brand)}
-.util-soc{display:flex;align-items:center;gap:2px;color:var(--muted);font-size:13.5px}
+.util-soc{display:flex;align-items:center;gap:2px;margin-left:auto;color:var(--muted);font-size:13.5px}
 .util-soc a{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;color:var(--ink)}
 .util-soc a:hover{background:var(--surface);color:var(--brand)}
-.util-soc .fb{margin-left:6px}
 
 /* En-tête */
 .site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--bg);border-bottom:1px solid var(--line)}
@@ -413,10 +412,6 @@ __ADMIN_BAR__
 
 <div class="util">
   <div class="wrap util-in">
-    <nav class="util-links" aria-label="Rubriques">
-      <button type="button" class="util-link" data-page="marques">Marques</button>
-      <button type="button" class="util-link" data-page="conseils">Conseils</button>
-    </nav>
     <div class="util-soc" id="utilSoc"></div>
   </div>
 </div>
@@ -654,8 +649,7 @@ var SHOP={name:'Emile’s Hijab & Divers',channelUrl:'',
   socials:[
     {id:'instagram',name:'Instagram',handle:'@emile_s_hijab',url:'https://www.instagram.com/emile_s_hijab/'},
     {id:'tiktok',name:'TikTok',handle:'@emilehijabgrossiste',url:'https://www.tiktok.com/@emilehijabgrossiste'}
-  ],
-  facebook:'Emile’s hijab'};            /* ajoutez facebookUrl quand vous avez le lien de la page */
+  ]};
 
 /* Les six conseillers font le même travail : toutes les commandes passent par ces six numéros. */
 var ADVISORS=[
@@ -1058,7 +1052,7 @@ var ICONS={
 function renderSocials(){
   $('#utilSoc').innerHTML=SHOP.socials.map(function(x){
     return '<a href="'+esc(x.url)+'" target="_blank" rel="noopener" aria-label="'+esc(x.name)+' : '+esc(x.handle)+'" title="'+esc(x.name)+'">'+ICONS[x.id]+'</a>';
-  }).join('')+'<span class="fb">Facebook : '+esc(SHOP.facebook)+'</span>';
+  }).join('');
 }
 
 /* ----- Conseillers ----- */
@@ -1080,7 +1074,7 @@ function renderAdvisors(){
   +'<div class="phone-info"><p><b>Réclamations et suggestions</b>'+esc(SHOP.service)+'</p><p><b>Horaires</b>'+esc(SHOP.hours)+'</p><p><b>Adresse</b>'+esc(SHOP.address)+'</p></div>';
   $('#brandAsk').href=waLink(ADV0.phone,'Bonjour '+SHOP.name+', je cherche une marque : ');
   $('#tipAsk').href=waLink(ADV0.phone,'Bonjour '+SHOP.name+', j’ai une question sur un produit.');
-  $('#footContact').innerHTML='<li>Commandes : 6 conseillers sur WhatsApp</li><li>Réclamations : '+esc(SHOP.service)+'</li><li>'+esc(SHOP.hours)+'</li><li>'+esc(SHOP.address)+'</li>'+SHOP.socials.map(function(x){return '<li><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name)+' : '+esc(x.handle)+'</a></li>'}).join('')+'<li>Facebook : '+esc(SHOP.facebook)+'</li>';
+  $('#footContact').innerHTML='<li>Commandes : 6 conseillers sur WhatsApp</li><li>Réclamations : '+esc(SHOP.service)+'</li><li>'+esc(SHOP.hours)+'</li><li>'+esc(SHOP.address)+'</li>'+SHOP.socials.map(function(x){return '<li><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name)+' : '+esc(x.handle)+'</a></li>'}).join('');
 }
 
 /*__ADMIN_JS__*/

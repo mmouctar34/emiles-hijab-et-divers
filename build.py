@@ -5,7 +5,8 @@
   index.html    = contenu de la page (commence par <title>), tel qu'on le publie sur la plateforme
   full.html     = document complet tel que la page se republie elle-même (sert aux tests et à l'aperçu local)
   template.html = gabarit (avec le marqueur de bloc), sert aux tests
-Avec --pages, écrit aussi la version pour GitHub Pages à la racine du dépôt (index.html + photos dans _blob/).
+Avec --pages, écrit aussi la version pour GitHub Pages à la racine du dépôt (index.html + photos dans _blob/),
+avec une gestion de démonstration (src/pages-demo.js) accessible par l'adresse ...#gestion.
 IMPORTANT avant toute republication : partir du catalogue PUBLIÉ (bloc catalog-data de la version en ligne),
 pas de data/catalog.json, sinon on écrase ce que le propriétaire a publié depuis."""
 import base64, json, os, re, shutil, sys
@@ -84,27 +85,48 @@ def build(P, cat):
 
 
 def pages_version(full, assets):
-    """Version pour un hébergement ordinaire (GitHub Pages) : même page, trois adaptations.
+    """Version pour un hébergement ordinaire (GitHub Pages) : même page, quelques adaptations.
     1. les photos sont lues dans _blob/<id>.jpg à côté de la page (au lieu de /_blob/<id> de la plateforme) ;
     2. le bandeau « Maquette de démonstration » ne peut plus être fermé ;
-    3. la page n'est pas référencée par les moteurs de recherche."""
+    3. la page n'est pas référencée par les moteurs de recherche ;
+    4. la gestion des produits fonctionne en démonstration (adresse ...#gestion) : les changements
+       sont gardés dans le navigateur de la personne qui essaie (src/pages-demo.js)."""
+    def once(text, old, new, what):
+        if text.count(old) != 1:
+            sys.exit('%s : %d occurrence(s) au lieu de 1' % (what, text.count(old)))
+        return text.replace(old, new)
+
     n = len(re.findall(r'/_blob/[0-9a-f]{32}', full))
     full = re.sub(r'/_blob/([0-9a-f]{32})', r'_blob/\1.jpg', full)
-    old = "return '/_blob/'+v;"
-    if full.count(old) != 1:
-        sys.exit('imgSrc introuvable')
-    full = full.replace(old, "return '_blob/'+v+'.jpg';")
+    full = once(full, "return '/_blob/'+v;",
+                "return (window.__demoImgs&&window.__demoImgs[v])||('_blob/'+v+'.jpg');", 'imgSrc')
     if '/_blob/' in full:
         sys.exit('lien /_blob/ restant')
     css_old = '.preview-in button{border:0;background:none;width:32px;height:32px;border-radius:50%;flex:none;font-size:16px}'
-    if full.count(css_old) != 1:
-        sys.exit('règle du bandeau introuvable')
-    full = full.replace(css_old, css_old + '\n#noteClose{display:none}')
+    css_new = (css_old + '\n#noteClose{display:none}'
+               '\n.page-head .demo-note{margin-top:14px;padding:10px 14px;border-radius:12px;background:var(--blush);'
+               'color:var(--ink);font-size:14.5px}')
+    full = once(full, css_old, css_new, 'règle du bandeau')
     head_old = '<meta charset=utf8>'
     if not full.startswith('<!doctype html><html><head>' + head_old):
         sys.exit('en-tête introuvable')
     # seulement la première occurrence : le même texte existe aussi dans le script de publication
     full = full.replace(head_old, head_old + '<meta name="robots" content="noindex,nofollow">', 1)
+    # textes de la barre de gestion et de la page de gestion, adaptés à la démonstration
+    full = once(full, 'Cette barre n’apparaît que pour vous. Les clients ne la voient pas.',
+                'Démonstration : vos essais restent sur cet appareil, personne d’autre ne les voit.', 'texte de la barre')
+    full = once(full, 'après avoir touché « Publier ».</p>',
+                'après avoir touché « Publier ».</p>\n    <p class="demo-note">Démonstration : sur le vrai site, « Publier » met la boutique à jour pour tous les clients. '
+                'Ici, la mise à jour reste sur cet appareil, et le bouton « Remettre la démonstration à zéro » en haut efface les essais.</p>',
+                'texte de la page de gestion')
+    # le script de démonstration doit s'exécuter avant le script de la page (il lit le catalogue enregistré)
+    demo = open(os.path.join(HERE, 'src', 'pages-demo.js'), encoding='utf-8').read().rstrip('\n')
+    if '</script' in demo:
+        sys.exit('pages-demo.js ne doit pas contenir </script')
+    pat = re.compile(r'(<script type="text/plain" id="tpl-src">[A-Za-z0-9+/=]+</script>)\n')
+    if len(pat.findall(full)) != 1:
+        sys.exit('bloc tpl-src introuvable')
+    full = pat.sub(lambda m: m.group(1) + '\n<script>\n' + demo + '\n</script>\n', full, count=1)
     return full, n
 
 

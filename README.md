@@ -41,6 +41,7 @@ La page est **sa propre base de données** :
 build.py            assemble la page (résultat dans dist/)
 src/page.html       la boutique (HTML, CSS, JS)
 src/admin.*         l'espace de gestion (CSS, HTML, JS)
+src/pages-demo.js   gestion de démonstration pour GitHub Pages (stockage dans le navigateur)
 data/catalog.json   catalogue de départ : 8 produits, prix en FCFA
 data/assets.json    correspondance photo -> identifiant sur la plateforme
 assets/             logo et photos d'origine des produits
@@ -64,7 +65,7 @@ python3 build.py --pages      # écrit en plus la version GitHub Pages (index.ht
 
 ### Version en ligne (GitHub Pages)
 
-`python3 build.py --pages` produit à la racine la même boutique, prête pour un hébergement ordinaire : les photos sont lues dans `_blob/`, le bandeau « Maquette de démonstration » ne peut pas être fermé et la page n'est pas référencée par les moteurs de recherche (`noindex`). L'espace de gestion n'y apparaît pas, il dépend de la plateforme Claude Artifacts.
+`python3 build.py --pages` produit à la racine la même boutique, prête pour un hébergement ordinaire : les photos sont lues dans `_blob/`, le bandeau « Maquette de démonstration » ne peut pas être fermé et la page n'est pas référencée par les moteurs de recherche (`noindex`). L'espace de gestion y fonctionne **en démonstration** : il s'ouvre avec l'adresse suivie de `#gestion` (https://mmouctar34.github.io/emiles-hijab-et-divers/#gestion) et les visiteurs normaux ne le voient pas. On peut ajouter un produit avec sa photo, changer un prix, masquer, déplacer, supprimer, puis « Publier » : la boutique se met à jour, mais seulement dans le navigateur de la personne qui essaie. Le bouton « Remettre la démonstration à zéro » efface les essais. Sur la plateforme Claude, la même page publie pour de vrai, pour tous les clients.
 
 Pour la publier : Settings, Pages, Source « Deploy from a branch », branche `main`, dossier `/ (root)`.
 Adresse : https://mmouctar34.github.io/emiles-hijab-et-divers/
@@ -76,12 +77,12 @@ pip install playwright && playwright install chromium
 for t in tests/t?.py; do python3 $t; done
 ```
 
-Les tests simulent la plateforme : propriétaire et visiteur, ajout de produit avec photo, modification, brouillon, publication, erreurs, affichage mobile et mode sombre.
+Les tests simulent la plateforme : propriétaire et visiteur, ajout de produit avec photo, modification, brouillon, publication, erreurs, affichage mobile et mode sombre. Le test `t6.py` vérifie la version GitHub Pages et sa gestion de démonstration ; il demande d'avoir lancé `python3 build.py --pages` avant.
 
 ## Limites connues
 
-- La page de gestion dépend de la plateforme Claude Artifacts (droits de modification, publication, stockage des photos). Elle n'a été testée qu'avec une simulation de ces appels.
+- La page de gestion dépend de la plateforme Claude Artifacts (droits de modification, publication, stockage des photos). Elle n'a été testée qu'avec une simulation de ces appels. Sur GitHub Pages, c'est une démonstration locale qui ne met pas la boutique à jour pour les autres visiteurs.
 - Pour un vrai site avec nom de domaine, l'espace de gestion serait à refaire : un serveur avec connexion protégée, et un stockage pour le catalogue et les photos. L'apparence et le catalogue se reprennent tels quels.
 - Les catégories sont fixes. Les rubriques Nouveautés, Soldes et Idées cadeaux ont été retirées de la navigation ; leur code est conservé dans la page.
-- Le lien de la chaîne WhatsApp, la page Facebook et les prix de détail ne sont pas renseignés.
+- Le lien de la chaîne WhatsApp et les prix de détail ne sont pas renseignés.
 - Les produits, prix et numéros WhatsApp viennent de captures fournies pour la maquette. Ils doivent être validés par le commerçant avant tout usage réel.
