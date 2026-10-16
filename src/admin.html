@@ -1,0 +1,61 @@
+@@BAR
+<div class="owner-bar" id="ownerBar" hidden>
+  <div class="wrap owner-in">
+    <span class="owner-tag">Mode gestion</span>
+    <span class="owner-msg">Cette barre n’apparaît que pour vous. Les clients ne la voient pas.</span>
+    <span class="owner-act">
+      <button type="button" class="btn btn-sm owner-btn" data-adm="open">Gérer les produits</button>
+      <button type="button" class="btn btn-sm btn-primary" id="ownerPub" data-adm="publish" hidden>Publier</button>
+    </span>
+  </div>
+</div>
+@@PAGE
+<main id="page-gestion" hidden>
+  <div class="page-head"><div class="wrap">
+    <nav class="crumbs" aria-label="Fil d’Ariane"><button type="button" data-page="home">Accueil</button><span aria-hidden="true">›</span><span>Gestion des produits</span></nav>
+    <h1>Gestion des produits</h1>
+    <p>Ajoutez un produit, changez un prix ou retirez un article. Vos changements restent un brouillon : les clients ne les voient qu’après avoir touché « Publier ».</p>
+  </div></div>
+  <section class="section" aria-label="Liste des produits"><div class="wrap">
+    <div class="adm-bar">
+      <button type="button" class="btn btn-primary" data-adm="new">+ Ajouter un produit</button>
+      <label class="sr-only" for="admQ">Chercher un produit</label>
+      <input id="admQ" type="search" placeholder="Chercher un produit" autocomplete="off">
+    </div>
+    <div class="adm-sum" id="admSum" aria-live="polite"></div>
+    <div class="adm-list" id="admList"></div>
+    <p class="fine" style="margin-top:18px">Les catégories de la boutique (Maquillage, Soin visage, Cheveux, Corps et bain, Parfum, Mode) sont fixes. Pour en changer ou pour modifier les textes du site, demandez-le à la personne qui a créé le site.</p>
+  </div></section>
+</main>
+
+<div class="modal" id="editModal" role="dialog" aria-modal="true" aria-labelledby="edTitle" hidden>
+  <div class="modal-box ed-box">
+    <div class="ed-head">
+      <h2 id="edTitle">Ajouter un produit</h2>
+      <button class="icon-btn" type="button" data-ed="cancel" aria-label="Fermer sans enregistrer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="ed-body" id="edBody"></div>
+    <div class="ed-err" id="edErr" role="alert" hidden></div>
+    <div class="ed-foot">
+      <button type="button" class="btn btn-ghost btn-sm btn-del" id="edDel" data-ed="del" hidden>Supprimer ce produit</button>
+      <span class="sp"></span>
+      <button type="button" class="btn btn-ghost" data-ed="cancel">Annuler</button>
+      <button type="button" class="btn btn-primary" data-ed="save">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="modal-box sheet-box">
+    <h3 id="sheetTitle"></h3>
+    <div class="sheet-body" id="sheetBody"></div>
+    <p class="err" id="sheetErr" role="alert" hidden></p>
+    <div class="sheet-act" id="sheetAct"></div>
+  </div>
+</div>
+
+<div class="draftbar" id="draftBar" role="status" hidden>
+  <span id="draftTxt"></span>
+  <button type="button" class="btn btn-sm btn-ghost" data-adm="open">Voir</button>
+  <button type="button" class="btn btn-sm btn-primary" data-adm="publish">Publier</button>
+</div>

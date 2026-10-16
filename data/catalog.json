@@ -1,0 +1,26 @@
+{
+ "v": 1,
+ "rev": 1,
+ "products": [
+  {"id":"p1","name":"Brume de corps 236 ml","cat":"parfum","group":"Parfum femme","sub":"Brume parfumée","img":"eb709ed181daf4049444fccc77612eb8","alt":"Brume de corps 236 ml, flacons noirs",
+   "packs":[["Les 3",3,3750],["Demi-douzaine",6,7500],["Douzaine",12,15000],["Demi-carton",48,48000],["Carton",96,96000]]},
+  {"id":"p2","name":"Parfum Moussuf, très bonne qualité","cat":"parfum","group":"Parfum femme","sub":"Eau de parfum","brand":"Moussuf","img":"62324389ac9de58f697e6ee863d50e0b","alt":"Parfums Moussuf avec leurs pochons",
+   "note":"Livraison à Dakar offerte dès la douzaine",
+   "packs":[["Les 3",3,4500],["Demi-douzaine",6,9000],["Douzaine",12,18000]]},
+  {"id":"p3","name":"Parfum chambre 500 ml","cat":"parfum","group":"Parfum intérieur","sub":"Spray d’ambiance","img":"a86da2d3939c31226be4380fa247a03d","alt":"Sprays parfum chambre 500 ml",
+   "packs":[["Les 3",3,3250],["Demi-douzaine",6,6500],["Douzaine",12,13000]]},
+  {"id":"p4","name":"Duo shampooing et démêlant","cat":"cheveux","sub":"Shampoing","img":"9a6f90df363fe571f50551f664d6e598","alt":"Duos shampooing et démêlant en pochette","pos":"center 45%",
+   "note":"1 500 FCFA la pièce à partir de 3 pièces",
+   "packs":[["Les 3",3,4500],["Demi-douzaine",6,9000],["Douzaine",12,18000]]},
+  {"id":"p5","name":"Kit pinceaux en miniature","cat":"maquillage","group":"Pinceaux et accessoires","sub":"Pinceaux","img":"7dd3dec41cac694073fe30db7f5b54cb","alt":"Kits de petits pinceaux de maquillage","unit":"paquet","pos":"center 40%",
+   "note":"En gros : 500 FCFA le paquet",
+   "packs":[["3 paquets",3,1500],["6 paquets",6,3000],["12 paquets",12,6000]]},
+  {"id":"p6","name":"Montre carbone","cat":"mode","sub":"Montres","img":"bda24e2e6ea2dfd670a1f13c5d58a221","alt":"Montre carbone noire dans son coffret","pos":"center 15%","badge":"Stock limité",
+   "note":"1 500 FCFA la pièce à partir de 3 pièces",
+   "packs":[["Les 3",3,4500],["Demi-douzaine",6,9000],["Douzaine",12,18000]]},
+  {"id":"p7","name":"Pâte dentifrice clous de girofle avec brosse à dents","cat":"corps","group":"Hygiène bucco-dentaire","sub":"Dentifrice","brand":"Ice Summer","img":"e62bc8a30ffec1ea4ddbe42b524293e5","alt":"Dentifrice clous de girofle et brosse à dents","pos":"center 25%",
+   "packs":[["Les 3",3,3000],["Demi-douzaine",6,6000],["Douzaine",12,12000],["Carton",96,86000]]},
+  {"id":"p8","name":"Kit Miss Vanessa, soin des lèvres","cat":"maquillage","group":"Lèvres","sub":"Baumes à lèvres","brand":"Miss Vanessa","img":"22e34d11cf33c116961d12663314c320","alt":"Kits Miss Vanessa de soin des lèvres",
+   "packs":[["Les 3",3,2000],["Demi-douzaine",6,4000],["Douzaine",12,8000]]}
+ ]
+}
