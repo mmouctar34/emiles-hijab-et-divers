@@ -46,6 +46,8 @@ data/assets.json    correspondance photo -> identifiant sur la plateforme
 assets/             logo et photos d'origine des produits
 tests/              tests Playwright (window.claude simulé)
 docs/MAINTENANCE.md notes de maintenance
+docs/index.html     la boutique pour GitHub Pages (générée par build.py --pages)
+docs/_blob/         les photos pour GitHub Pages (générées)
 ```
 
 ## Utiliser le projet
@@ -54,10 +56,18 @@ Il faut Python 3.
 
 ```bash
 python3 build.py              # écrit dist/index.html, dist/full.html, dist/template.html
+python3 build.py --pages      # écrit en plus la version GitHub Pages dans docs/
 ```
 
 - `dist/index.html` est le contenu à publier sur la plateforme Claude Artifacts. Les capacités `artifact` et `assets` doivent être déclarées à la publication.
 - `dist/full.html` s'ouvre dans un navigateur pour un aperçu de la mise en page. Hors de la plateforme, les photos ne s'affichent pas (elles sont servies depuis le stockage de l'artifact, sous `/_blob/<id>`), et le logo les remplace. L'espace de gestion reste caché.
+
+### Version en ligne (GitHub Pages)
+
+`python3 build.py --pages` produit dans `docs/` la même boutique, prête pour un hébergement ordinaire : les photos sont lues dans `docs/_blob/`, le bandeau « Maquette de démonstration » ne peut pas être fermé et la page n'est pas référencée par les moteurs de recherche (`noindex`). L'espace de gestion n'y apparaît pas, il dépend de la plateforme Claude Artifacts.
+
+Pour la publier : Settings, Pages, Source « Deploy from a branch », branche `main`, dossier `/docs`.
+Adresse : https://mmouctar34.github.io/emiles-hijab-et-divers/
 
 ### Tests
 
